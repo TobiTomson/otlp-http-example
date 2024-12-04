@@ -1,0 +1,19 @@
+receivers:
+  otlp:
+    protocols:
+      http:
+        endpoint: 0.0.0.0:4318
+
+exporters:
+  debug:
+    verbosity: detailed
+  datadog:
+    api:
+      key: YOUR_API_KEY  # Replace with your actual Datadog API key
+      site: "datadoghq.eu"
+
+service:
+  pipelines:
+    traces:
+      receivers: [otlp]
+      exporters: [debug, datadog]

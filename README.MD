@@ -12,7 +12,9 @@ This project uses Python code to illustrate how one can use OTLP/HTTP to send tr
 - [Datadog Tracing Libraries](https://docs.datadoghq.com/tracing/trace_collection/automatic_instrumentation/dd_libraries/)
 - [Datadog Tracing via Agent API](https://docs.datadoghq.com/tracing/guide/send_traces_to_agent_by_api/)
 - [OTel zero-code instrumentation](https://opentelemetry.io/docs/concepts/instrumentation/zero-code/)
-- [OTel Libraries](https://opentelemetry.io/docs/concepts/instrumentation/libraries/) 
+- [OTel Libraries](https://opentelemetry.io/docs/concepts/instrumentation/libraries/)
+- Non-tracing telemetry native to the technology you want to monitor (metrics, logs, ...)
+
 
 ## Project Structure
 

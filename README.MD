@@ -27,6 +27,9 @@ This project uses Python code to illustrate how one can use OTLP/HTTP to send tr
 - `otel-config.yaml`:  
   Configuration file for the OpenTelemetry Collector to process incoming spans and export them.
 
+- `long-running-trace-generator.py`:  
+  like `trace-generator.py`, but the generated spans are long running and are sending updates repeatedly to monitor long running transactions.
+
 ## How to run
 
 ### Prerequisites
@@ -68,3 +71,13 @@ Check the logs of the OpenTelemetry Collector to verify traces are being process
 `docker compose logs -f otel-collector`
 
 Verify traces in [Datadog](https://app.datadoghq.eu/apm/traces)
+
+### Hints for long running spans
+
+For an unfinished / ongoing span, set the `_dd.partial_version` attribute (integer) to identify that it is in progress and the version of the span. Only the span with the highest version will be kept. It can be an auto-increment value or simply the timestamp of when the span was sent.
+
+For a finished span do *not* set the _dd.partial_version attribute. Set `_dd.was_long_running` to 1.
+
+Hint: Spans with `_dd.partial_version` attribute are ignored for trace metrics generation.
+
+![Screenshot of long running spans in Datadog](./img/long_running_spans.png)

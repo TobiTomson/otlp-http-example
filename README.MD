@@ -40,20 +40,24 @@ This project uses Python code to illustrate how one can use OTLP/HTTP to send tr
    - `python3 -m venv venv`
    - `source venv/bin/activate`
 
-2. Install required Python packages:
+1. Configure correct API key:
+   - `cp .env.example .env`
+   - set correct api key
+
+1. Install required Python packages:
 
     `pip install requests`
 
-3. Start the OpenTelemetry Collector
+1. Start the OpenTelemetry Collector
 
     Ensure the docker-compose.yml and otel-config.yaml files are in the same directory.
     Start the Collector with Docker Compose:
 
     `docker compose up -d`
 
-3. Run the Trace Generator
+1. Run the Trace Generator
 
-    `python trace-generator.py`
+    `python3 trace-generator.py`
 
     The script will generate a trace with one parent span and one child span, and send the trace to the OpenTelemetry Collector using the OTLP/HTTP protocol.
 

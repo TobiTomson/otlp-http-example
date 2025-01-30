@@ -3,8 +3,9 @@ services:
     image: otel/opentelemetry-collector-contrib:latest # using the -contrib version, because we need the Datadog exporter
     ports:
       - "4318:4318"  # OTLP JSON HTTP endpoint
+    env_file: ".env"
     volumes:
       - ./otel-config.yaml:/etc/otel-config.yaml
     command:
       - --config=/etc/otel-config.yaml
-    restart: always
+    restart: unless-stopped

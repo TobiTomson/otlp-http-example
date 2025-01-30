@@ -4,16 +4,33 @@ receivers:
       http:
         endpoint: 0.0.0.0:4318
 
+# use datadog connector for trace metrics generation (see https://docs.datadoghq.com/opentelemetry/guide/migration/#example-configuration)
+connectors:
+  datadog/connector:
+
 exporters:
   debug:
     verbosity: detailed
-  datadog:
+  datadog/exporter:
     api:
-      key: YOUR_API_KEY  # Replace with your actual Datadog API key
+      key: ${DATADOG_API_KEY} # don't forget to set in your .env file
       site: "datadoghq.eu"
+
+processors:
+  batch:
+    # Batch telemetry data into larger payloads.
+    send_batch_max_size: 1000
+    send_batch_size: 100
+    timeout: 10s
 
 service:
   pipelines:
     traces:
       receivers: [otlp]
-      exporters: [debug, datadog]
+      processors: [batch]
+      exporters: [datadog/exporter, datadog/connector]
+
+    metrics:
+      receivers: [otlp, datadog/connector]
+      processors: [batch]
+      exporters: [datadog/exporter]
